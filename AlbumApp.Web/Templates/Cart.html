@@ -1,0 +1,68 @@
+﻿<p class="text-info">
+  Thanks for shopping at Album Music.<br />
+  This is your shopping cart. Here you can edit the items,
+  go back to the store, clear the cart, or check out.
+</p>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span8">
+
+      <!-- items -->
+      <table class="table table-bordered">
+
+        <!-- header -->
+        <tr class="well">
+          <td><b>Item</b></td>
+          <td class="tdRight"><b>Price</b></td>
+          <td class="tdCenter"><b>Quantity</b></td>
+          <td />
+        </tr>
+
+        <!-- empty cart message -->
+        <tr ng-hide="$scope.getTotalCount() > 0">
+          <td class="tdCenter" colspan="4">
+            Your cart is empty.
+          </td>
+        </tr>
+
+        <!-- cart items -->
+        <tr ng-repeat="item in $scope.cartItems| orderBy:'name'">
+          <td>{{item.Title}}</td>
+          <td class="tdCenter">
+          </td>
+          <td class="tdRight">{{item.price * item.quantity | currency}}</td>
+        </tr>
+
+        <!-- footer -->
+        <tr class="well">
+          <td><b>Total</b></td>
+          <td class="tdCenter"><b>{{ $scope.getTotalCount()}}</b></td>
+          <td class="tdRight"><b>{{$scope.getTotalPrice() | currency}}</b></td>
+          <td />
+        </tr>
+      </table>
+    </div>
+
+    <!-- buttons -->
+    <div class="span4">
+      <p class="text-info">
+        <button class="btn"
+                onclick="window.location.href='default.htm'">
+          <i class="icon-chevron-left" /> back to store
+        </button>
+        <button class="btn btn-danger"
+                ng-click="$scope.clearItems()"
+                ng-disabled="$scope.getTotalCount() < 1">
+          <i class="icon-trash icon-white" /> clear cart
+        </button>
+      </p>
+
+      <br /><br />
+
+      <br /><br />
+
+    </div>
+  </div>
+</div>
+

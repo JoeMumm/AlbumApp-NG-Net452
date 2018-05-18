@@ -1,0 +1,52 @@
+﻿@model AlbumApp.Web.Models.AlbumDetailsVM
+
+@{  ViewBag.Title = "Album Details"; }
+
+<h2>Album Details</h2>
+
+@if (ViewBag.ErrorMsg != null)
+{
+  <br />
+  <span style="color:red">@ViewBag.ErrorMsg</span>
+  <br /> }
+else
+{
+  <table style="border:none">
+    <tr>
+      <td style="border:none"><img src=@Model.Image width="200" height="200"></td>
+      <td valign="top" style="border:none">
+        <div>
+          <div><span class="detailHeader">Album:</span><span class="detailContent">@Model.Title</span></div>
+          <div><span class="detailHeader">Artist:</span><span class="detailContent">@Model.Artist</span></div>
+          <div><span class="detailHeader">Genre:</span><span class="detailContent">@Model.Genre</span></div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <h4 style="font-weight:bold; padding-left:38px">Track List</h4>
+  <ul style="list-style: none;">
+    @foreach (var track in Model.Tracks)
+    {
+      <li style="border-bottom:1px solid #bbb; width:500px">
+        <span class="detailNumber">@track.Number.</span>
+        <span class="detailName">@track.Name</span>
+        <span class="detailTime">@track.Minutes:@track.Seconds</span>
+      </li>
+    }
+  </ul> }
+<div style="padding-left:430px; font-size:large; font-weight:bold">
+  Price: <span style="color:#B12704">$@Model.Price</span>
+</div>
+<br />
+
+@if (Request.IsAuthenticated) {
+  <a id="btn_add" href="@Url.Action("Add", "Cart", new { albumId = Model.AlbumId, price = Model.Price })"
+          class="btn btn-info btn-lg" style="margin-left:60px">
+    <span class="fa fa-shopping-cart"></span> Add To Cart
+  </a> }
+<a id="btn_add" href="@Url.Action("Index", "Album")" class="btn btn-info btn-lg" style="margin-left:60px">
+  <span class="fa fa-eye"></span> Continue Shopping
+</a>
+
+<br /><br />

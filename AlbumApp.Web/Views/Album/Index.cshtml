@@ -1,0 +1,23 @@
+﻿
+@{ ViewBag.Title = "Albums"; }
+
+@section scripts {
+
+  <script src="~/Scripts/ui-grid.min.js"></script>
+  <link href="~/Content/ui-grid.min.css" rel="stylesheet" />
+  <script src="@Url.Content("~/Binding/Models/AlbumFilter.js")" type="text/javascript"></script>
+  <script src="@Url.Content("~/Binding/Models/SortItem.js")" type="text/javascript"></script>
+  <script src="@Url.Content("~/Binding/ViewModels/AlbumViewModel.js")" type="text/javascript"></script>
+}
+
+<h3>Albums</h3>
+<div data-ng-app="appAlbum">
+  <div ng-controller="AlbumViewModel">
+    <div class="spinner-config" ng-show="viewModelHelper.isLoading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <button type="button" class="btn primary sort-btn" ng-click="applyFilters()">Apply Filters</button>
+    <div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid"></div>
+  </div>  
+  <br />
+</div>

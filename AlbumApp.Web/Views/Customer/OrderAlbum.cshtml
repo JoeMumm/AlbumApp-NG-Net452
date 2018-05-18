@@ -1,0 +1,25 @@
+﻿
+@{
+  ViewBag.Title = "Order an Album";
+  ViewBag.Name = "CustomerActions";
+}
+
+@section scripts {
+  <script src="@Url.Content("~/Binding/Models/OrderAlbumModel.js")"
+          type="text/javascript"></script>
+  <script src="@Url.Content("~/Binding/ViewModels/OrderAlbumViewModel.js")"
+          type="text/javascript"></script>
+}
+
+@section footerScript {
+  angular.bootstrap(document.getElementById("orderAlbum"), ['orderAlbum']);
+}
+
+<div ng-non-bindable>
+  <div data-ng-controller="OrderAlbumViewModel" id="orderAlbum">
+    <br />
+    @Html.Partial("~/Views/Shared/_ValidationErrors.cshtml")
+    <br />
+    <div ng-view></div>
+  </div>
+</div>

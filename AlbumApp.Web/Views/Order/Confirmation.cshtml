@@ -1,0 +1,44 @@
+﻿@model Order
+
+
+@{ ViewBag.Title = "Confirmation";
+  var total = @Model.Amount + @Model.Tax + @Model.Shipping; }
+
+<h2>Order Confirmation</h2>
+
+<h4>
+  <span class="order-pad">Your order has been placed and will ship in a few days!</span><br />
+  <span>Please keep a copy for your records.</span>
+</h4>
+
+<div class="order-summary">
+  <div>
+    <span class="order-title">Order #: </span>
+    <span class="order-text">@Model.OrderId</span>
+  </div>
+  <div>
+    <span class="order-title">Date: </span>
+    <span class="order-text">@Model.Created.ToString("MM/dd/yyyy hh:mm tt")</span>
+  </div><br />
+  <div>
+    <span class="order-title">SubTotal: </span>
+    <span class="order-text">$@Model.Amount</span>
+  </div>
+  <div>
+    <span class="order-title">Tax: </span>
+    <span class="order-text">$@Model.Tax</span>
+  </div>
+  <div>
+    <span class="order-title">Shipping: </span>
+    <span class="order-text">$@Model.Shipping</span>
+  </div>
+  <hr align="left" width="300px" class="cart-hr">
+  <div>
+    <span class="order-title order-total-title">Total: </span>
+    <span class="order-text order-total-text">$@total</span>
+  </div>
+</div>
+<br />
+<br />
+
+<p> @Html.ActionLink("Albums", "Index", "Album") </p>

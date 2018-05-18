@@ -1,0 +1,6 @@
+﻿<div ng-show="viewModelHelper.modelIsValid == false" class="well">
+    <div class="label label-danger" style="font-size:large">Errors!</div><br /><br />
+    <ul data-ng-repeat="e in viewModelHelper.modelErrors">
+        <li style="color: red">{{ e }}</li>
+    </ul>
+</div>

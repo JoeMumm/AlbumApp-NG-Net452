@@ -1,0 +1,91 @@
+﻿<core:UserControlViewBase x:Class="AlbumApp.Admin.Views.MaintainAlbumsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:core="http://www.AlbumMusic.com/Core"
+             xmlns:conv="clr-namespace:AlbumApp.Admin.Support"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="320" d:DesignWidth="1000">
+  <UserControl.Resources>
+    <conv:ViewModelNullToVisibilityConverter x:Key="ViewModelNullToVisibilityConverter" />
+  </UserControl.Resources>
+  <xctk:BusyIndicator x:Name="ProgressIndicator" IsBusy="{Binding IsBusy}"
+                      BusyContent=" Loading Albums: Please Wait! . . . ">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,-777,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+          <Button Content="Add New" Command="{Binding AddAlbumCommand}" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" SharedSizeGroup="links" />
+            <ColumnDefinition Width="250" SharedSizeGroup="title" />
+            <ColumnDefinition Width="250" SharedSizeGroup="artist" />
+            <ColumnDefinition Width="150" SharedSizeGroup="genre" />
+            <ColumnDefinition Width="150" SharedSizeGroup="number" />
+            <ColumnDefinition Width="80" SharedSizeGroup="price" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="Select" Style="{StaticResource MetroTextHeader}" />
+          <TextBlock Grid.Column="1" Text="Title" Style="{StaticResource MetroTextHeader}" />
+          <TextBlock Grid.Column="2" Text="Artist" Style="{StaticResource MetroTextHeader}" />
+          <TextBlock Grid.Column="3" Text="Genre" Style="{StaticResource MetroTextHeader}" />
+          <TextBlock Grid.Column="4" Text="Number" Style="{StaticResource MetroTextHeader}" />
+          <TextBlock Grid.Column="5" Text="Price" Style="{StaticResource MetroTextHeader}" />
+        </Grid>
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding AlbumVMs}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="80" SharedSizeGroup="links" />
+                  <ColumnDefinition Width="250" SharedSizeGroup="title" />
+                  <ColumnDefinition Width="250" SharedSizeGroup="artist" />
+                  <ColumnDefinition Width="150" SharedSizeGroup="genre" />
+                  <ColumnDefinition Width="150" SharedSizeGroup="number" />
+                  <ColumnDefinition Width="80" SharedSizeGroup="price" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                  <TextBlock>
+                    <Hyperlink Command="{Binding DataContext.EditAlbumCommand,
+                        RelativeSource={RelativeSource AncestorType=core:UserControlViewBase}}" CommandParameter="{Binding}">
+                      <TextBlock Text="edit" Style="{StaticResource MetroLink}" /> 
+                    </Hyperlink>
+                  </TextBlock>
+                  <TextBlock Text=" " />
+                  <TextBlock>
+                    <Hyperlink Command="{Binding DataContext.DeleteAlbumCommand,
+                        RelativeSource={RelativeSource AncestorType=core:UserControlViewBase}}" CommandParameter="{Binding}">
+                      <TextBlock Text="delete" Style="{StaticResource MetroLink}" /> 
+                    </Hyperlink>
+                  </TextBlock>
+                  <TextBlock Text=" " />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Text="{Binding Title}" Style="{StaticResource MetroText}" />
+                <TextBlock Grid.Column="2" Text="{Binding Artist}" Style="{StaticResource MetroText}" />
+                <TextBlock Grid.Column="3" Text="{Binding Genre}" Style="{StaticResource MetroText}" />
+                <TextBlock Grid.Column="4" Text="{Binding AlbumNumber}" Style="{StaticResource MetroText}" />
+                <TextBlock Grid.Column="5" Text="{Binding Price, StringFormat=C}" Style="{StaticResource MetroText}" />
+              </Grid>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Grid>
+      <Border Grid.Column="1" CornerRadius="4" Margin="10" BorderBrush="SteelBlue" BorderThickness="1" Background="BlanchedAlmond"
+              Visibility="{Binding CurrentAlbumViewModel, Converter={StaticResource ViewModelNullToVisibilityConverter}}">
+        <ContentControl Content="{Binding CurrentAlbumViewModel}"  />
+      </Border>
+    </Grid>
+  </xctk:BusyIndicator>
+</core:UserControlViewBase>
