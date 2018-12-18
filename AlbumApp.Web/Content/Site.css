@@ -380,6 +380,7 @@ input[type="checkbox"].input-validation-error {
   font-size:small;
   font-weight:bold;
   width: 27px;
+  text-align: right;
 }
 
 .cart-amount {
